@@ -1,20 +1,17 @@
 package com.interview.basic.data_structures.linked_lists;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-public class SinglyLinkedListTests {
-    private SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+public class CircularlyLinkedListTests {
+    private CircularlyLinkedList<Integer> circularlyLinkedList = new CircularlyLinkedList<>();
     private int size = 10;
 
     @Test
     void testAddFirst() {
         String expectedResult = buildLinkedList();
-        System.out.println(expectedResult);
-        System.out.println(singlyLinkedList);
-        assert expectedResult.equals(singlyLinkedList.toString());
+        assert expectedResult.equals(circularlyLinkedList.toString());
     }
 
     private String buildLinkedList() {
@@ -30,20 +27,20 @@ public class SinglyLinkedListTests {
             } else {
                 sb.insert(0, "," + element);
             }
-            singlyLinkedList.addFirst(element);
+            circularlyLinkedList.addFirst(element);
             num--;
         }
         sb.insert(0, "[");
-        System.out.println("Expected result:" + sb);
-        System.out.println("Generated result: " + singlyLinkedList);
+        System.out.println(sb);
+        System.out.println(circularlyLinkedList);
         return sb.toString();
     }
 
     @Test
     void testSize() {
         buildLinkedList();
-        System.out.println("size: " + singlyLinkedList.size());
-        assert size == singlyLinkedList.size();
+        System.out.println("size: " + circularlyLinkedList.size());
+        assert size == circularlyLinkedList.size();
     }
 
     @Test
@@ -54,9 +51,9 @@ public class SinglyLinkedListTests {
         sb.append("[");
         while (num > 0) {
             if (num == 1) {
-                sb.append(singlyLinkedList.removeFirst());
+                sb.append(circularlyLinkedList.removeFirst());
             } else {
-                sb.append(singlyLinkedList.removeFirst() + ",");
+                sb.append(circularlyLinkedList.removeFirst() + ",");
             }
             num--;
         }
@@ -66,7 +63,7 @@ public class SinglyLinkedListTests {
 
     @Test
     void testEmpty() {
-        assert singlyLinkedList.isEmpty();
+        assert circularlyLinkedList.isEmpty();
     }
 
     @Test
@@ -83,14 +80,12 @@ public class SinglyLinkedListTests {
             } else {
                 sb.append(element + ",");
             }
-            singlyLinkedList.addLast(element);
+            circularlyLinkedList.addLast(element);
             num--;
         }
         sb.append("]");
         System.out.println(sb);
-        System.out.println(singlyLinkedList);
-        assert sb.toString().equals(singlyLinkedList.toString());
+        System.out.println(circularlyLinkedList);
+        assert sb.toString().equals(circularlyLinkedList.toString());
     }
-
-
 }

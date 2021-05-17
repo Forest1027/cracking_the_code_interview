@@ -66,14 +66,14 @@ public class SinglyLinkedList<E> {
         size++;
     }
 
-    public Node<E> removeFirst() {
+    public E removeFirst() {
         if (isEmpty()) {
             throw new RuntimeException("List is empty.");
         }
         Node<E> result = head;
         head = head.next;
         size--;
-        return result;
+        return result.value;
     }
 
     private class Node<E> {
