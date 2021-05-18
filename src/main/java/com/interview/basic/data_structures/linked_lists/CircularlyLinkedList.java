@@ -31,8 +31,7 @@ public class CircularlyLinkedList<E> {
         }
         if (tail == null) {
             tail = new Node<>(null, value);
-        } else if (size == 1) {
-            tail.next = new Node<>(tail, value);
+            tail.next = tail;
         } else {
             tail.next = new Node<>(tail.next, value);
         }
