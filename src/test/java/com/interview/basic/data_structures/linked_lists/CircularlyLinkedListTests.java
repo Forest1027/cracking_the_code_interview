@@ -11,6 +11,8 @@ public class CircularlyLinkedListTests {
     @Test
     void testAddFirst() {
         String expectedResult = buildLinkedList();
+        System.out.println(expectedResult);
+        System.out.println(circularlyLinkedList);
         assert expectedResult.equals(circularlyLinkedList.toString());
     }
 
@@ -31,8 +33,6 @@ public class CircularlyLinkedListTests {
             num--;
         }
         sb.insert(0, "[");
-        System.out.println(sb);
-        System.out.println(circularlyLinkedList);
         return sb.toString();
     }
 
@@ -58,6 +58,8 @@ public class CircularlyLinkedListTests {
             num--;
         }
         sb.append("]");
+        System.out.println(expectedResult);
+        System.out.println(circularlyLinkedList);
         assert expectedResult.contentEquals(sb);
     }
 

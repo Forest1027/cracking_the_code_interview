@@ -35,8 +35,6 @@ public class DoublyLinkedListTests {
             num--;
         }
         sb.insert(0, "[");
-        System.out.println("Expected result:" + sb);
-        System.out.println("Generated result: " + linkedList);
         return sb.toString();
     }
 
@@ -62,6 +60,8 @@ public class DoublyLinkedListTests {
             num--;
         }
         sb.append("]");
+        System.out.println("Expected result:" + expectedResult);
+        System.out.println("Generated result: " + linkedList);
         assert expectedResult.contentEquals(sb);
     }
 

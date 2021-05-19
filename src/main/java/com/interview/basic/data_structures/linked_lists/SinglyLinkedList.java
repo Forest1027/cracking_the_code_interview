@@ -13,12 +13,12 @@ public class SinglyLinkedList<E> {
         return size == 0;
     }
 
-    public Node<E> first() {
-        return head;
+    public E first() {
+        return head.value;
     }
 
-    public Node<E> last() {
-        return tail;
+    public E last() {
+        return tail.value;
     }
 
     public String toString() {

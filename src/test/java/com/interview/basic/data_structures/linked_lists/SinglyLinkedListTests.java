@@ -34,8 +34,6 @@ public class SinglyLinkedListTests {
             num--;
         }
         sb.insert(0, "[");
-        System.out.println("Expected result:" + sb);
-        System.out.println("Generated result: " + singlyLinkedList);
         return sb.toString();
     }
 
@@ -61,6 +59,8 @@ public class SinglyLinkedListTests {
             num--;
         }
         sb.append("]");
+        System.out.println("Expected result:" + sb);
+        System.out.println("Generated result: " + singlyLinkedList);
         assert expectedResult.contentEquals(sb);
     }
 
