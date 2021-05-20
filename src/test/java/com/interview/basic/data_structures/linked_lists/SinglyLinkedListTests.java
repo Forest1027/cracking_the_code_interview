@@ -54,7 +54,7 @@ public class SinglyLinkedListTests {
             if (num == 1) {
                 sb.append(singlyLinkedList.removeFirst());
             } else {
-                sb.append(singlyLinkedList.removeFirst() + ",");
+                sb.append(singlyLinkedList.removeFirst()).append(",");
             }
             num--;
         }

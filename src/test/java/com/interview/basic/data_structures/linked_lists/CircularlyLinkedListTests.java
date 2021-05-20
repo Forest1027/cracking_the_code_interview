@@ -53,7 +53,7 @@ public class CircularlyLinkedListTests {
             if (num == 1) {
                 sb.append(circularlyLinkedList.removeFirst());
             } else {
-                sb.append(circularlyLinkedList.removeFirst() + ",");
+                sb.append(circularlyLinkedList.removeFirst()).append(",");
             }
             num--;
         }

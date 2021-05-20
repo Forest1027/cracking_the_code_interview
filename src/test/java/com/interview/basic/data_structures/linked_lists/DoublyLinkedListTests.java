@@ -55,7 +55,7 @@ public class DoublyLinkedListTests {
             if (num == 1) {
                 sb.append(linkedList.removeFirst());
             } else {
-                sb.append(linkedList.removeFirst() + ",");
+                sb.append(linkedList.removeFirst()).append(",");
             }
             num--;
         }

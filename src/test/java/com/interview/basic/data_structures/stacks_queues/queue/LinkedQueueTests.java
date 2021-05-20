@@ -1,58 +1,58 @@
-package com.interview.basic.data_structures.stacks_queues.stack;
+package com.interview.basic.data_structures.stacks_queues.queue;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-public class LinkedStackTests {
-    private Stack<Integer> stack = new LinkedStack<>();
+public class LinkedQueueTests {
+    private Queue<Integer> queue = new LinkedQueue<>();
     private int size = 10;
 
     @Test
-    public void testPush() {
-        String expectedResult = buildStack();
+    public void testEnqueue() {
+        String expectedResult = buildQueue();
         System.out.println("Expected result:" + expectedResult);
-        System.out.println("Generated result: " + stack);
-        assert expectedResult.equals(stack.toString());
+        System.out.println("Generated result: " + queue);
+        assert expectedResult.equals(queue.toString());
     }
 
-    private String buildStack() {
+    private String buildQueue() {
         int num = size;
         StringBuilder sb = new StringBuilder();
-        sb.append("]");
+        sb.append("[");
         Random random = new Random();
         while (num > 0) {
             int element = random.nextInt(100);
             System.out.println("generated number is: " + element);
             if (num == 1) {
-                sb.insert(0, element);
+                sb.append(element);
             } else {
-                sb.insert(0, "," + element);
+                sb.append(element).append(",");
             }
-            stack.push(element);
+            queue.enqueue(element);
             num--;
         }
-        sb.insert(0, "[");
+        sb.append("]");
         return sb.toString();
     }
 
     @Test
-    public void pop() {
+    public void testDequeue() {
         int num = size;
-        String expectedResult = buildStack();
+        String expectedResult = buildQueue();
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         while (num > 0) {
             if (num == 1) {
-                sb.append(stack.pop());
+                sb.append(queue.dequeue());
             } else {
-                sb.append(stack.pop()).append(",");
+                sb.append( queue.dequeue()).append(",");
             }
             num--;
         }
         sb.append("]");
         System.out.println("Expected result:" + expectedResult);
-        System.out.println("Generated result: " + stack);
+        System.out.println("Generated result: " + sb);
         assert expectedResult.contentEquals(sb);
     }
 }
