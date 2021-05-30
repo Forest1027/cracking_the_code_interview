@@ -2,6 +2,7 @@ package com.interview.basic.data_structures.trees_tries_graphs.tree.binarytree;
 
 import com.interview.basic.data_structures.trees_tries_graphs.Position;
 import com.interview.basic.data_structures.trees_tries_graphs.tree.AbstractTree;
+import com.interview.basic.data_structures.trees_tries_graphs.tree.TraversalMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,12 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements B
     @Override
     public Iterable<Position<E>> children(Position<E> p) throws IllegalStateException {
         List<Position<E>> children = new ArrayList<>(2);
-        children.add(left(p));
-        children.add(right(p));
+        if (left(p) != null) {
+            children.add(left(p));
+        }
+        if (right(p) != null) {
+            children.add(right(p));
+        }
         return children;
     }
 
@@ -38,5 +43,34 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements B
             count++;
         }
         return count;
+    }
+
+    @Override
+    public Iterable<Position<E>> positions() {
+        Iterable<Position<E>> result = super.positions();
+        if (result == null && super.traversalMethod.equals(TraversalMethod.INORDER)) {
+            return inorder();
+        } else {
+            return result;
+        }
+    }
+
+    // inorder traversal algorithm
+    public Iterable<Position<E>> inorder() {
+        List<Position<E>> snapshot = new ArrayList<>();
+        if (!isEmpty()) {
+            inorderSubtree(root(), snapshot);
+        }
+        return snapshot;
+    }
+
+    private void inorderSubtree(Position<E> position, List<Position<E>> snapshot) {
+        if (left(position) != null) {
+            inorderSubtree(left(position), snapshot);
+        }
+        snapshot.add(position);
+        if (right(position) != null) {
+            inorderSubtree(right(position), snapshot);
+        }
     }
 }

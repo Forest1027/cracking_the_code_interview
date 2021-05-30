@@ -2,7 +2,9 @@ package com.interview.basic.data_structures.trees_tries_graphs.tree.binarytree;
 
 import com.interview.basic.data_structures.trees_tries_graphs.Position;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     private Node<E> root = null;
@@ -25,16 +27,6 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     }
 
     @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
-
-    @Override
-    public Iterable<Position<E>> positions() {
-        return null;
-    }
-
-    @Override
     public Position<E> left(Position<E> p) throws IllegalArgumentException {
         Node<E> node = validate(p);
         return node.left;
@@ -48,7 +40,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
     // helper methods
     protected Node<E> createNode(Node<E> parent, Node<E> left, Node<E> right, E element) {
-        return new Node<E>(parent, left, right, element);
+        return new Node<>(parent, left, right, element);
     }
 
     protected Node<E> validate(Position<E> p) throws IllegalArgumentException {
@@ -62,14 +54,15 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         return node;
     }
 
-    private Node<E> addRoot(E e) {
+    public Position<E> addRoot(E e) {
         if (!isEmpty()) {
             throw new IllegalArgumentException("Tree is not empty");
         }
-        return createNode(null, null, null, e);
+        root = createNode(null, null, null, e);
+        return root;
     }
 
-    private Node<E> addLeft(Position<E> p, E e) {
+    public Position<E> addLeft(Position<E> p, E e) {
         Node<E> node = validate(p);
         if (node.left != null) {
             throw new IllegalArgumentException("p already has left child");
@@ -80,7 +73,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         return left;
     }
 
-    private Node<E> addRight(Position<E> p, E e) {
+    public Position<E> addRight(Position<E> p, E e) {
         Node<E> node = validate(p);
         if (node.right != null) {
             throw new IllegalArgumentException("p already has right child");
@@ -91,14 +84,14 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         return right;
     }
 
-    private E set(Position<E> p, E e) {
+    public E set(Position<E> p, E e) {
         Node<E> node = validate(p);
         E oldElement = p.getElement();
         node.element = e;
         return oldElement;
     }
 
-    private void attach(Position<E> p, LinkedBinaryTree<E> tree1, LinkedBinaryTree<E> tree2) {
+    public void attach(Position<E> p, LinkedBinaryTree<E> tree1, LinkedBinaryTree<E> tree2) {
         Node<E> node = validate(p);
         if (isInternal(p)) {
             throw new IllegalArgumentException("p numst be a leaf");
@@ -124,7 +117,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      * @param p
      * @return
      */
-    private E remove(Position<E> p) {
+    public E remove(Position<E> p) {
         Node<E> node = validate(p);
         if (numChildren(p) == 2) {
             throw new IllegalArgumentException("p has 2 children");
@@ -153,12 +146,37 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         return e;
     }
 
+    // inorder traversal algorithm for setting coordinates
+    public Iterable<Position<E>> inorder() {
+        List<Position<E>> snapshot = new ArrayList<>();
+        if (!isEmpty()) {
+            inorderSubtree(root(), snapshot, 0, 0);
+        }
+        return snapshot;
+    }
+
+    private int inorderSubtree(Position<E> position, List<Position<E>> snapshot, int x, int y) {
+        Node<E> node = validate(position);
+        if (left(node) != null) {
+            x = inorderSubtree(left(node), snapshot, x, y + 1);
+        }
+        snapshot.add(node);
+        node.x = x++;
+        node.y = y;
+        if (right(node) != null) {
+            x = inorderSubtree(right(node), snapshot, x, y + 1);
+        }
+        return x;
+    }
+
     // nested Node class
     protected static class Node<E> implements Position<E> {
         private Node<E> parent;
         private Node<E> left;
         private Node<E> right;
         private E element;
+        private int x;
+        private int y;
 
         public Node(Node<E> parent, Node<E> left, Node<E> right, E element) {
             this.parent = parent;
@@ -171,6 +189,17 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         public E getElement() throws IllegalStateException {
             return element;
         }
+
+        @Override
+        public int getX() {
+            return x;
+        }
+
+        @Override
+        public int getY() {
+            return y;
+        }
+
     }
 
 }
