@@ -1,7 +1,7 @@
 package com.interview.basic.data_structures.heaps;
 
-import com.interview.basic.data_structures.vectors_arraylists.ArrayList;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
@@ -104,6 +104,18 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
                 j = smallerIndex;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Entry<K, V> entry : heap
+        ) {
+            sb.append("(").append(entry.getKey()).append(",").append(entry.getValue()).append(")");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
 }
