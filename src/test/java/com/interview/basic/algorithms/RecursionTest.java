@@ -12,4 +12,9 @@ class RecursionTest {
         assertThat(expected == result);
     }
 
+    @Test
+    public void testEnglishRuler() {
+        Recursion.drawRuler(2, 4);
+    }
+
 }
