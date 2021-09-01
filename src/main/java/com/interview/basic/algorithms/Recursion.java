@@ -19,7 +19,7 @@ public class Recursion {
         }
     }
 
-    public static void drawLine(int length, int label) {
+    private static void drawLine(int length, int label) {
         for (int i = 0; i < length; i++) {
             System.out.print("-");
         }
@@ -30,13 +30,27 @@ public class Recursion {
         System.out.println();
     }
 
-    public static void drawInterval(int length) {
+    private static void drawInterval(int length) {
         if (length == 0) {
             System.out.println();
         } else {
             drawInterval(length - 1);
             drawLine(length, -1);
             drawInterval(length - 1);
+        }
+    }
+
+    public static int binarySearch(int[] data, int low, int high, int target) {
+        if (low > high) {
+            return -1;
+        }
+        int medium = (low + high) / 2;
+        if (data[medium] == target) {
+            return medium;
+        } else if (data[medium] < target) {
+            return binarySearch(data, medium + 1, high, target);
+        } else {
+            return binarySearch(data, low, medium - 1, target);
         }
     }
 
