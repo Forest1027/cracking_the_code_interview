@@ -1,5 +1,6 @@
-package com.interview.basic.algorithms;
+package com.interview.basic.algorithms.recurstion;
 
+import com.interview.basic.algorithms.recursion.Recursion;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;

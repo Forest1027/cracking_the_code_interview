@@ -1,4 +1,4 @@
-package com.interview.basic.algorithms;
+package com.interview.basic.algorithms.recursion;
 
 public class Recursion {
     public static int factorial(int num) {
