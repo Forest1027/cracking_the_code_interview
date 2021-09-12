@@ -209,7 +209,6 @@ public class AdjacencyMapGraph<V, E> implements Graph<V, E> {
         public String toString() {
             return "InnerEdge{" +
                     "element=" + element +
-                    ", endpoints=" + Arrays.toString(endpoints) +
                     '}';
         }
     }
