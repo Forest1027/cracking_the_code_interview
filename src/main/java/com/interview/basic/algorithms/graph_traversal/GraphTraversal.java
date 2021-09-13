@@ -27,8 +27,8 @@ public class GraphTraversal {
      * @param u      vertex u
      * @param v      vertex v
      * @param forest explored edges
-     * @param <V>
-     * @param <E>
+     * @param <V>    type of vertex
+     * @param <E>    type of edge
      * @return an ordered list of edges comprising the directed path from u to v
      */
     public static <V, E> LinkedList<Edge<E>> constructPath(Graph<V, E> g, Vertex<V> u, Vertex<V> v, Map<Vertex<V>, Edge<E>> forest) {
@@ -64,6 +64,31 @@ public class GraphTraversal {
             }
             level = nextLevel;
         }
+    }
+
+    public static <V, E> LinkedList<Vertex<V>> topologicalSort(Graph<V, E> g) {
+        LinkedList<Vertex<V>> result = new LinkedList<>();
+        Stack<Vertex<V>> stack = new Stack<>();
+        Map<Vertex<V>, Integer> inMap = new HashMap<>();
+        for (Vertex<V> u : g.vertices()) {
+            inMap.put(u, g.inDegree(u));
+            if (inMap.get(u) == 0) {
+                stack.push(u);
+            }
+        }
+
+        while (!stack.empty()) {
+            Vertex<V> u = stack.pop();
+            result.addLast(u);
+            for (Edge<E> e : g.outgoingEdges(u)) {
+                Vertex<V> v = g.opposite(u, e);
+                inMap.put(v, inMap.get(v) - 1);
+                if (inMap.get(v) == 0) {
+                    stack.push(v);
+                }
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
