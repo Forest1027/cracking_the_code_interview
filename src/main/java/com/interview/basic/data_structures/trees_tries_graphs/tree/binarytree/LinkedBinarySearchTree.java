@@ -1,9 +1,6 @@
 package com.interview.basic.data_structures.trees_tries_graphs.tree.binarytree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class LinkedBinarySearchTree {
     private BSTNode root;
@@ -61,7 +58,7 @@ public class LinkedBinarySearchTree {
         } else {
             if (!(bstNode.getRight() != null && bstNode.getLeft() != null)) {
                 // has at most one child
-                BSTNode parent = bstNode.getParent();
+                var parent = bstNode.getParent();
                 if (bstNode.getLeft() != null) {
                     bstNode = bstNode.getLeft();
                 } else {
