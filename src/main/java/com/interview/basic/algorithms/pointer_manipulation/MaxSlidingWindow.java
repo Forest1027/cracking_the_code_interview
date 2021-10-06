@@ -2,6 +2,7 @@ package com.interview.basic.algorithms.pointer_manipulation;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * 239. Sliding Window Maximum
@@ -9,40 +10,49 @@ import java.util.Arrays;
  */
 public class MaxSlidingWindow {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int size = nums.length - k + 1;
-        int[] result = new int[size];
-        int pointer = getIndexOfMax(nums, 0, k - 1);
-        for (int i = 0; i < size; i++) {
-            if (pointer >= i && pointer <= i + k - 1) {
-                pointer = compare(nums, i + k - 1, pointer);
-            } else {
-                pointer = getIndexOfMax(nums, i, i + k - 1);
-            }
-            result[i] = nums[pointer];
+        if (nums == null || k <= 0) {
+            throw new IllegalArgumentException("Input is invalid");
         }
+        int len = nums.length;
+        if (len == 0 || k == 1) {
+            return Arrays.copyOf(nums, len);
+        }
+        if (len <= k) {
+            return new int[] { getMaxVal(nums) };
+        }
+
+        Deque<Integer> deque = new ArrayDeque<>();
+        int[] result = new int[len - k + 1];
+
+        for (int i = 0; i < len; i++) {
+            if (!deque.isEmpty() && deque.peekFirst() == i - k) {
+                deque.pollFirst();
+            }
+            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
+                deque.pollLast();
+            }
+            deque.offerLast(i);
+
+            if (i >= k - 1) {
+                result[i - k + 1] = nums[deque.peekFirst()];
+            }
+        }
+
         return result;
     }
 
-    private int compare(int[] nums, int index1, int index2) {
-        return nums[index1] > nums[index2] ? index1 : index2;
-    }
-
-    private int getIndexOfMax(int[] nums, int start, int end) {
-        int p = start;
-        int max = nums[p];
-        for (int i = start; i <= end; i++) {
-            if (nums[i] > max) {
-                p = i;
-                max = nums[p];
-            }
+    private int getMaxVal(int[] nums) {
+        int max = nums[0];
+        for (int n : nums) {
+            max = Math.max(max, n);
         }
-        return p;
+        return max;
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[] {-7,-8,7,5,7,1,6,0};
+        int[] nums = new int[] {-1,3,-1,-3,5,3,6,7};
         MaxSlidingWindow max = new MaxSlidingWindow();
-        int[] result = max.maxSlidingWindow(nums, 4);
+        int[] result = max.maxSlidingWindow(nums, 3);
         System.out.println(Arrays.toString(result));
     }
 }
