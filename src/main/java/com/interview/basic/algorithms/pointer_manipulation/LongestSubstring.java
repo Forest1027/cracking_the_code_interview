@@ -1,6 +1,8 @@
 package com.interview.basic.algorithms.pointer_manipulation;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -9,33 +11,22 @@ import java.util.Set;
  */
 public class LongestSubstring {
     public int lengthOfLongestSubstring(String s) {
-        if (s.length() == 0) {
-            return 0;
-        }
-        int left = 0;
-        int right = 0;
-        int max = 0;
-        Set<Character> characters = new HashSet<>();
-        while (left < s.length() && right < s.length()) {
-            System.out.println("loop");
-            if (!characters.contains(s.charAt(right))) {
-                characters.add(s.charAt(right));
-                right++;
-                if (max < characters.size()) {
-                    max = characters.size();
-                }
-            } else {
-                left++;
-                right = left;
-                characters = new HashSet<>();
+        int n = s.length(), ans = 0;
+        Map<Character, Integer> map = new HashMap<>(); // current index of character
+        // try to extend the range [i, j]
+        for (int j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
             }
+            ans = Math.max(ans, j - i + 1);
+            map.put(s.charAt(j), j + 1);
         }
-        return max;
+        return ans;
     }
 
     public static void main(String[] args) {
         LongestSubstring longestSubstring = new LongestSubstring();
-        int result = longestSubstring.lengthOfLongestSubstring("abcabcbb");
+        int result = longestSubstring.lengthOfLongestSubstring("abba");
         System.out.println(result);
     }
 }
