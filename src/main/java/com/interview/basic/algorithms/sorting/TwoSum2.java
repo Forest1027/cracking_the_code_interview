@@ -22,6 +22,7 @@ public class TwoSum2 {
     }
 
     /**
+     * brute force
      * TC: O(n^2)
      * SC: O(1)
      */
